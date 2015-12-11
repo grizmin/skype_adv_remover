@@ -89,6 +89,19 @@ class Action(Build_GUI):
                 if 'config.xml' in filename:
                     skype_profiles.append(os.path.split(root)[1])
         return skype_profiles
+        
+    def find_all_skype_profiles_winreg(self):
+        """ lists all profile names wsing winreg """
+        skype_profiles = []
+        skype_regentry = wreg.OpenKey(wreg.HKEY_CURRENT_USER, "Software\\Skype\\Phone\\Users")
+        for i in range(20):
+            try:
+                skype_profile_name = wreg.EnumKey(skype_regentry,i)
+                if skype_profile_name:
+                    skype_profiles.append(skype_profile_name)
+            except WindowsError as werror:
+                pass
+        return skype_profiles
                 
     def change_adv_config(self,skype_profile_name):
         """ removes advertisements from config.xml """
@@ -140,7 +153,7 @@ class Action(Build_GUI):
 if __name__ == '__main__':
     root = Tk()
     gui = Action(root)
-    all_skype_profiles = gui.find_all_skype_profiles()
+    all_skype_profiles = gui.find_all_skype_profiles_winreg()
     
     gui.center_window(all_skype_profiles)
     gui.draw_profile_checkbuttons(all_skype_profiles)
