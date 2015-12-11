@@ -65,13 +65,14 @@ class Action(Build_GUI):
                 skype_profile_to_patch.append(i)
         if not len(skype_profile_to_patch):
             tkMessageBox.showinfo("Error", "No skype profile was selected!")
+            
         else:    
             for skype_profile in skype_profile_to_patch:
                 self.change_adv_config(skype_profile)
                 self.add_restricted_site()
-        if self.restartvar.get():
-            self.restart_skype()
-        tkMessageBox.showinfo("Congratulations!", "Your skype will display no more annoying advertisements.")
+            if self.restartvar.get():
+                self.restart_skype()
+            tkMessageBox.showinfo("Congratulations!", "Your skype will display no more annoying advertisements.")
     
     def get_pid(self,pname):
         """ takes string process name, returns integer process id"""
