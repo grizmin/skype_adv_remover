@@ -106,6 +106,8 @@ class Action(Build_GUI):
           skype_profiles.append(skype_profile_name)
       except WindowsError as werror:
         pass
+      finally:
+        wreg.CloseKey(skype_regentry)
     return skype_profiles
 
   def change_adv_config(self,skype_profile_name):
