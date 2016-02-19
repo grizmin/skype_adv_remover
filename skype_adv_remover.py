@@ -107,14 +107,14 @@ class Action(Build_GUI):
             skype_regentry = wreg.OpenKey(wreg.HKEY_CURRENT_USER, "Software\\Skype\\Phone\\Users")
         except WindowsError:
             return 0
-        for i in range(20):
-            try:
-                skype_profile_name = wreg.EnumKey(skype_regentry, i)
-                if skype_profile_name:
-                    skype_profiles.append(skype_profile_name)
-            except WindowsError as werror:
-                pass
-            finally:
+            for i in range(20):
+                try:
+                    skype_profile_name = wreg.EnumKey(skype_regentry, i)
+                    if skype_profile_name:
+                        skype_profiles.append(skype_profile_name)
+                except WindowsError as werror:
+                    pass
+        finally:
                 wreg.CloseKey(skype_regentry)            
         return skype_profiles
 
